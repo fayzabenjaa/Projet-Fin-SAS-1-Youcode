@@ -203,6 +203,7 @@ console.log("bienvenue dans le Railway Management System!");
 console.log("Voici la liste des voyages disponibles :");
 for (let i=0; i<=trips.length-1; i++) 
 {
+    console.log("------------------" );
     console.log("id :" + trips[i].id );
     console.log("departure :" + trips[i].departure);
     console.log("destination :" + trips[i].destination);
@@ -214,29 +215,31 @@ for (let i=0; i<=trips.length-1; i++)
 }
 else if (x===2)
 {
-let nom=prompt("entrez votre nom :");
-let n=parseInt(prompt("entrez l'identifiant de votre trajet :"));
-if (n>20 || n<=0)
-{
-    console.log("se trajet n'existe pas :");
-}else if (trips[n-1].availableSeats==0)
-{
-    console.log("il n'y a plus de place disponibles pour le trajet que vous avez sélectionné .");
-}else 
-{
-    const voyageur =
+    let nom=prompt("entrez votre nom :");
+    let n=parseInt(prompt("entrez l'identifiant de votre trajet :"));
+    if (n>20 || n<=0)
     {
-        id: tickets.length + 1, 
-        passengerName: nom, 
-        tripId: n, 
-        seatNumber: trips[n-1].availableSeats, 
-        price: trips[n-1].price
+    console.log("se trajet n'existe pas :");
     }
+    else if (trips[n-1].availableSeats==0)
+    {
+    console.log("il n'y a plus de place disponibles pour le trajet que vous avez sélectionné .");
+    }
+    else 
+    {
+    const voyageur =
+        {
+            id: tickets.length + 1, 
+            passengerName: nom, 
+            tripId: n, 
+            seatNumber: trips[n-1].availableSeats, 
+            price: trips[n-1].price
+        }
     trips[n-1].availableSeats-=1;
     tickets.push(voyageur);
     console.log("ticket acheté avec succés");
     console.log(tickets[0]);
-};
+    };
 }
 else if (x===3)
 {
@@ -258,22 +261,48 @@ else if (x===4)
 }
 else if (x===5)
 {
-    let v=prompt("entrez vote nom :")
-    const f = tickets.find(ticket => ticket.passengerName === v)
+    let v=prompt("entrez vote nom :");
+    const f = tickets.find(ticket => ticket.passengerName === v);
         if (f)
         {
             console.log("voici le ticket :");
             console.log(f);
         }else{
-            console.log("le ticket n'existe pas.")
+            console.log("le ticket n'existe pas.");
         }
     
 }
 else if (x===6)
 {
-    console.log()
+    let v=prompt("entrez ville de départ :");
+    const av = trips.filter(trip=>trip.departure.toLowerCase() ===v.toLowerCase());
+    if (av.length>0)
+    {
+        console.log(av);
+    }
+    else
+    {
+        console.log("il n'existe pas de trajet avec se départ")
+    }
 }
-else if (x === 0) {
+else if (x===7)
+{
+    for(i=0; i<trips.length; i++)
+    {
+        for(j=0; j<trips.length-1; j++)
+        {
+            if(trips[j].price>trips[j+1].price)
+            {
+                let temp=trips[j];
+                trips[j]=trips[j+1];
+                trips[j+1]=temp;
+            }
+        }
+    }
+    console.log(trips);
+}
+else if (x === 0) 
+{
     return;
 };
 }
