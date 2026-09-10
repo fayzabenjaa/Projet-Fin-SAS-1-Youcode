@@ -194,6 +194,7 @@ console.log("0. Quitter ");
 let x=parseInt(prompt("Votre choix : "));
  return x;
 }
+let ticketid=1;
 const tickets = [];
 while (true) {
     let x = menu();
@@ -229,13 +230,14 @@ else if (x===2)
     {
     const voyageur =
         {
-            id: tickets.length + 1, 
+            id:ticketid, 
             passengerName: nom, 
             tripId: n, 
             seatNumber: trips[n-1].availableSeats, 
             price: trips[n-1].price
         }
     trips[n-1].availableSeats-=1;
+    ticketid+=1
     tickets.push(voyageur);
     console.log("ticket acheté avec succés");
     console.log(tickets[0]);
