@@ -211,41 +211,44 @@ for (let i=0; i<=trips.length-1; i++)
     console.log("price :" + trips[i].price);
     console.log("availableSeats :" + trips[i].availableSeats);
 }
-}else if (x===2)
+}
+else if (x===2)
 {
-let nom1=prompt("entrez votre nom :");
-let n1=parseInt(prompt("entrez l'identifiant de votre trajet :"));
-if (n1>20 || n1<=0)
+let nom=prompt("entrez votre nom :");
+let n=parseInt(prompt("entrez l'identifiant de votre trajet :"));
+if (n>20 || n<=0)
 {
     console.log("se trajet n'existe pas :");
-}else if (trips[n1-1].availableSeats==0)
+}else if (trips[n-1].availableSeats==0)
 {
-    console.log("il n'y a plus de place disponibles pour le trajet que vous avez sélectionné .Veuillez choisir un autre trajet ?");
+    console.log("il n'y a plus de place disponibles pour le trajet que vous avez sélectionné .");
 }else 
 {
     const voyageur =
     {
         id: tickets.length + 1, 
-        passengerName: nom1, 
-        tripId: n1, 
-        seatNumber: trips[n1-1].availableSeats, 
-        price: trips[n1-1].price
+        passengerName: nom, 
+        tripId: n, 
+        seatNumber: trips[n-1].availableSeats, 
+        price: trips[n-1].price
     }
-    trips[n1-1].availableSeats-=1;
+    trips[n-1].availableSeats-=1;
     tickets.push(voyageur);
     console.log("ticket acheté avec succés");
     console.log(tickets[0]);
 };
-}else if (x===3)
+}
+else if (x===3)
 {
     console.log("voici tous les tickets :");
     for(let i=0; i<tickets.length; i++ )
     {
         console.log(tickets[i]);
     }
-}else if (x===4)
+}
+else if (x===4)
 {
-    let s = parseInt(prompt("entrez l'identifiant du ticket"));
+    let s = parseInt(prompt("entrez l'identifiant du ticket :"));
     const d = tickets.find(ticket => ticket.id === s);
     if (d) 
     {
@@ -253,8 +256,24 @@ if (n1>20 || n1<=0)
         tickets.splice(i, 1);
     }
 }
+else if (x===5)
+{
+    let v=prompt("entrez vote nom :")
+    const f = tickets.find(ticket => ticket.passengerName === v)
+        if (f)
+        {
+            console.log("voici le ticket :");
+            console.log(f);
+        }else{
+            console.log("le ticket n'existe pas.")
+        }
+    
+}
+else if (x===6)
+{
+    console.log()
+}
 else if (x === 0) {
     return;
-}
-
+};
 }
