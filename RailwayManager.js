@@ -194,11 +194,11 @@ console.log("0. Quitter ");
 let x=parseInt(prompt("Votre choix : "));
  return x;
 }
-let x=menu()
 const tickets = [];
-menu ();
-// if (x===1)
-// {
+while (true) {
+    let x = menu();
+if (x===1)
+{
 console.log("bienvenue dans le Railway Management System!");
 console.log("Voici la liste des voyages disponibles :");
 for (let i=0; i<=trips.length-1; i++) 
@@ -211,8 +211,8 @@ for (let i=0; i<=trips.length-1; i++)
     console.log("price :" + trips[i].price);
     console.log("availableSeats :" + trips[i].availableSeats);
 }
-// }else if (x===2)
-// {
+}else if (x===2)
+{
 let nom1=prompt("entrez votre nom :");
 let n1=parseInt(prompt("entrez l'identifiant de votre trajet :"));
 if (n1>20 || n1<=0)
@@ -223,31 +223,38 @@ if (n1>20 || n1<=0)
     console.log("il n'y a plus de place disponibles pour le trajet que vous avez sélectionné .Veuillez choisir un autre trajet ?");
 }else 
 {
-    const voyageur1 =
+    const voyageur =
     {
-        id: 1, 
+        id: tickets.length + 1, 
         passengerName: nom1, 
         tripId: n1, 
         seatNumber: trips[n1-1].availableSeats, 
         price: trips[n1-1].price
     }
     trips[n1-1].availableSeats-=1;
-    tickets.push(voyageur1);
+    tickets.push(voyageur);
     console.log("ticket acheté avec succés");
     console.log(tickets[0]);
 };
-// }else if (x===3)
-// {
+}else if (x===3)
+{
     console.log("voici tous les tickets :");
-    for(let i=0; i<=tickets.length; i++ )
+    for(let i=0; i<tickets.length; i++ )
     {
-        console.log(tickets[0]);
+        console.log(tickets[i]);
     }
-// }else if (x===4)
-// {
-    let s=parseInt(prompt("entrez l'identifiant du ticket"));
-    const d=tickets.find(tickets.id===s);
-    console.log(d)
-    tickets.delete(d)
-    console.log(tickets)
-// }
+}else if (x===4)
+{
+    let s = parseInt(prompt("entrez l'identifiant du ticket"));
+    const d = tickets.find(ticket => ticket.id === s);
+    if (d) 
+    {
+        const i = tickets.indexOf(d);
+        tickets.splice(i, 1);
+    }
+}
+else if (x === 0) {
+    return;
+}
+
+}
