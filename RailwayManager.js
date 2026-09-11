@@ -195,8 +195,14 @@ let x=parseInt(prompt("Votre choix : "));
  return x;
 }
 let ticketid=1;
+const seats = [];
+for (i=0; i<trips.length; i++)
+{
+    seats[i] = [];
+}
 const tickets = [];
-while (true) {
+while (true) 
+{
     let x = menu();
 if (x===1)
 {
@@ -228,19 +234,22 @@ else if (x===2)
     }
     else 
     {
+    let seat=seats[n-1].length+1;
     const voyageur =
         {
             id:ticketid, 
             passengerName: nom, 
             tripId: n, 
-            seatNumber: trips[n-1].availableSeats, 
+            seatNumber: seat, 
             price: trips[n-1].price
         }
+    seats[n-1].push(seat);
     trips[n-1].availableSeats-=1;
-    ticketid+=1
+
+    ticketid+=1;
     tickets.push(voyageur);
     console.log("ticket acheté avec succés");
-    console.log(tickets[0]);
+    console.log(voyageur);
     };
 }
 else if (x===3)
@@ -257,8 +266,18 @@ else if (x===4)
     const d = tickets.find(ticket => ticket.id === s);
     if (d) 
     {
+        const trip =trips.find(trip=>trip.id === d.tripId);
+        if (trip)
+        {
+            trip.availableSeats+=1
+        }
         const i = tickets.indexOf(d);
         tickets.splice(i, 1);
+        console.log("ticket annulé avec succès");
+    }
+    else
+    {
+        console.log("ticket n'existe pas.")
     }
 }
 else if (x===5)
@@ -269,14 +288,16 @@ else if (x===5)
         {
             console.log("voici le ticket :");
             console.log(f);
-        }else{
+        }
+        else
+        {
             console.log("le ticket n'existe pas.");
         }
     
 }
 else if (x===6)
 {
-    let v=prompt("entrez ville de départ :");
+    let v=prompt("entrez la ville de départ :");
     const av = trips.filter(trip=>trip.departure.toLowerCase() ===v.toLowerCase());
     if (av.length>0)
     {
