@@ -196,11 +196,12 @@ let x=parseInt(prompt("Votre choix : "));
 }
 let ticketid=1;
 const seats = [];
+const tickets = [];
+const canceledSeats = [];
 for (i=0; i<trips.length; i++)
 {
     seats[i] = [];
 }
-const tickets = [];
 while (true) 
 {
     let x = menu();
@@ -234,7 +235,19 @@ else if (x===2)
     }
     else 
     {
-    let seat=seats[n-1].length+1;
+    let seat;
+
+    const canceled = canceledSeats.find(c => c.tripId === n);
+
+    if (canceled && canceled.seats.length > 0)
+{
+    seat = canceled.seats[0];
+    canceled.seats.splice(0, 1);
+    }
+    else
+    {
+    seat = seats[n-1].length + 1;
+    }
     const voyageur =
         {
             id:ticketid, 
@@ -283,7 +296,7 @@ else if (x===4)
 else if (x===5)
 {
     let v=prompt("entrez vote nom :");
-    const f = tickets.find(ticket => ticket.passengerName === v);
+    const f = tickets.find(ticket => ticket.passengerName.toLowerCase() === v.toLowerCase());
         if (f)
         {
             console.log("voici le ticket :");
